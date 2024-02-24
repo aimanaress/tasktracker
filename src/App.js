@@ -1,10 +1,11 @@
 import React from "react";
+import MainHeader from "./shared/Navigation/MainHeader";
 
 function App() {
   return (
-    <div>
-      <div>Test</div>
-    </div>
+    <React.Fragment>
+      <MainHeader />
+    </React.Fragment>
   );
 }
 
