@@ -1,0 +1,4 @@
+.container__mainnav {
+  display: flex;
+  flex-direction: row;
+}

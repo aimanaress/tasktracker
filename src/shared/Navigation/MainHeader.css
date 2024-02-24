@@ -1,0 +1,11 @@
+.bg {
+  background-color: #171717;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 4rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
