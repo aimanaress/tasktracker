@@ -1,0 +1,13 @@
+.container__habititem {
+  background-color: rgb(225, 225, 225);
+  width: 80vw;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 0.5rem;
+}

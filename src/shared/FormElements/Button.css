@@ -1,0 +1,17 @@
+.btn {
+  padding: 0.3rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+.btn__primary {
+  background-color: rgb(105, 211, 0);
+}
+
+.btn__secondary {
+  background-color: rgb(112, 112, 112);
+}
