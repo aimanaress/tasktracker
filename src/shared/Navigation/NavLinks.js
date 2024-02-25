@@ -7,8 +7,8 @@ function NavLinks(props) {
       className={`container__navlink ${props.show && "current"} `}
       onClick={props.onClick}
     >
-      {props.icon}
-      <p>{props.title}</p>
+      <div className="icon__navlink">{props.icon}</div>
+      {props.show && <p className="title__navlink">{props.title}</p>}
     </a>
   );
 }
