@@ -4,10 +4,39 @@ import HabitItem from "./HabitItem";
 import "./HabitList.css";
 
 function HabitList() {
+  const habitList = [
+    {
+      id: 1,
+      name: "Habit 1",
+      status: true,
+    },
+    {
+      id: 2,
+      name: "Habit 2",
+      status: true,
+    },
+    {
+      id: 3,
+      name: "Habit 3",
+      status: false,
+    },
+    {
+      id: 4,
+      name: "Habit 4",
+      status: false,
+    },
+    {
+      id: 5,
+      name: "Habit 5",
+      status: false,
+    },
+  ];
+
   return (
     <div className="container__habitlist">
-      <HabitItem />;
-      <HabitItem />;
+      {habitList.map((habit) => {
+        return <HabitItem name={habit.name} status={habit.status} />;
+      })}
     </div>
   );
 }

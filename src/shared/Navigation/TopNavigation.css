@@ -1,0 +1,8 @@
+.container__topnav {
+  display: flex;
+}
+
+.header {
+  font-size: large;
+  font-weight: 600;
+}

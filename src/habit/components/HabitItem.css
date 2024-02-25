@@ -10,4 +10,14 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.done {
+  background-color: rgb(105, 105, 105);
+}
+
+.overlay__habitdone {
+  background: rgb(107, 107, 107);
+  opacity: 0.6;
 }

@@ -1,0 +1,11 @@
+.container__topheader {
+  background-color: rgb(44, 44, 44);
+  position: fixed;
+  width: 100vw;
+  height: 4rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}

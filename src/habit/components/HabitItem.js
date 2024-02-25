@@ -2,14 +2,18 @@ import React from "react";
 import "./HabitItem.css";
 import Button from "../../shared/FormElements/Button";
 
-function HabitItem() {
+function HabitItem(props) {
   return (
-    <div className="container__habititem">
+    <div
+      className={`container__habititem ${
+        props.status && "done overlay__habitdone"
+      }`}
+    >
       <div>
-        <div>HabitItem</div>
+        <div>{props.name}</div>
       </div>
       <div>
-        <Button name="Done" primary />
+        <Button name={`${props.status ? "Undone" : "Done"}`} primary />
         <Button name="Edit" secondary />
       </div>
     </div>
