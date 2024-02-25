@@ -10,11 +10,11 @@ function App() {
 
   return (
     <React.Fragment>
-      <TopHeader />
+      <TopHeader name={isCurrent} />
       <div className="container__content">
         <HabitList />
       </div>
-      <MainHeader />
+      <MainHeader current={isCurrent} />
     </React.Fragment>
   );
 }

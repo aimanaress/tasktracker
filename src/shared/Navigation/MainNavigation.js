@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import NavLinks from "./NavLinks";
 import {
   AdjustmentsHorizontalIcon,
   CalendarDaysIcon,
   GlobeAltIcon,
 } from "@heroicons/react/24/outline";
+import { useView } from "../context/ViewContext";
+import NavLinks from "./NavLinks";
 import "./MainNavigation.css";
 
-function MainNavigation() {
+function MainNavigation(props) {
   const [active, setActive] = useState("Today");
+
+  const { view, toggleView } = useView();
 
   const activeHandler = (title) => {
     // Update active state with the title of the clicked navigation
-    setActive(title);
+    toggleView(title);
   };
 
   const navigations = [
@@ -38,7 +41,7 @@ function MainNavigation() {
             title={nav.title}
             icon={<nav.icon />}
             // Check if the navigation is active
-            show={nav.title === active}
+            show={nav.title === view}
             // Pass the title to activeHandler
             onClick={() => activeHandler(nav.title)}
           />
