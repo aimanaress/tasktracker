@@ -30,6 +30,26 @@ function HabitList() {
       name: "Habit 5",
       status: false,
     },
+    {
+      id: 6,
+      name: "Habit 6",
+      status: false,
+    },
+    {
+      id: 7,
+      name: "Habit 7",
+      status: false,
+    },
+    {
+      id: 8,
+      name: "Habit 8",
+      status: false,
+    },
+    {
+      id: 9,
+      name: "Habit 9",
+      status: false,
+    },
   ];
 
   return (

@@ -1,5 +1,5 @@
 .container__topheader {
-  background-color: rgb(44, 44, 44);
+  background-color: #171717;
   position: fixed;
   width: 100vw;
   height: 4rem;
@@ -8,4 +8,5 @@
   align-items: center;
   justify-content: space-around;
   color: white;
+  z-index: 99;
 }
