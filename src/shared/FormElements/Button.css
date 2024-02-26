@@ -4,7 +4,9 @@
   padding-right: 0.5rem;
   margin-left: 0.125rem;
   margin-right: 0.125rem;
+  border: 0;
   border-radius: 0.5rem;
+  font-size: 0.7rem;
   color: white;
 }
 

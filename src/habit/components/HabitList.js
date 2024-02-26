@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HabitItem from "./HabitItem";
 
 import "./HabitList.css";
+import Input from "../../shared/FormElements/Input";
+import Button from "../../shared/FormElements/Button";
 
 function HabitList() {
-  const habitList = [
+  const [newTask, setNewTask] = useState("");
+  const [isShowAddTask, setIsShowAddTask] = useState(false);
+
+  let [habitList, setHabitList] = useState([
     {
       id: 1,
       name: "Habit 1",
@@ -50,14 +55,68 @@ function HabitList() {
       name: "Habit 9",
       status: false,
     },
-  ];
+  ]);
+
+  function addTaskHandler() {
+    console.log("Task added");
+    console.log(newTask);
+
+    setHabitList((prevList) => [
+      ...prevList,
+      {
+        id: habitList.length + 1,
+        name: newTask,
+        status: false,
+      },
+    ]);
+  }
+
+  function editHandler() {
+    console.log("Edit Handler");
+  }
+
+  function doneHandler(id) {
+    console.log("Done Handler");
+    setHabitList(
+      habitList.map((habit) => {
+        if (habit.id === id) {
+          return { ...habit, status: !habit.status };
+        }
+        return habit;
+      })
+    );
+    console.log(habitList);
+  }
+
+  function showAddTaskHandler() {
+    setIsShowAddTask(!isShowAddTask);
+  }
 
   return (
-    <div className="container__habitlist">
-      {habitList.map((habit) => {
-        return <HabitItem name={habit.name} status={habit.status} />;
-      })}
-    </div>
+    <React.Fragment>
+      <div className="container__inputform">
+        {isShowAddTask && (
+          <React.Fragment>
+            <Input type="text" onChange={(e) => setNewTask(e.target.value)} />
+            <Button name="Add task" onClick={addTaskHandler} />
+          </React.Fragment>
+        )}
+
+        <Button name="Add new task" onClick={showAddTaskHandler} />
+      </div>
+      <div className="container__habitlist">
+        {habitList.map((habit) => {
+          return (
+            <HabitItem
+              name={habit.name}
+              status={habit.status}
+              doneHandler={() => doneHandler(habit.id)}
+              editHandler={editHandler}
+            />
+          );
+        })}
+      </div>
+    </React.Fragment>
   );
 }
 

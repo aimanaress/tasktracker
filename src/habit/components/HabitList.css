@@ -4,3 +4,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.container__inputform {
+  background-color: red;
+  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

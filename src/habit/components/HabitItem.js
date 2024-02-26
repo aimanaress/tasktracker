@@ -13,8 +13,12 @@ function HabitItem(props) {
         <div>{props.name}</div>
       </div>
       <div>
-        <Button name={`${props.status ? "Undone" : "Done"}`} primary />
-        <Button name="Edit" secondary />
+        <Button
+          name={`${props.status ? "Undone" : "Done"}`}
+          primary
+          onClick={props.doneHandler}
+        />
+        <Button name="Edit" secondary onClick={props.editHandler} />
       </div>
     </div>
   );
