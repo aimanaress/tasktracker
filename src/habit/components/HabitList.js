@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import HabitItem from "./HabitItem";
+import { v4 as uuidv4 } from "uuid";
+import { useView } from "../../shared/context/ViewContext";
 
-import "./HabitList.css";
+import Modal from "../../shared/UIElements/Modal";
+import HabitItem from "./HabitItem";
 import Input from "../../shared/FormElements/Input";
 import Button from "../../shared/FormElements/Button";
 
-function HabitList() {
+import "./HabitList.css";
+function HabitList(props) {
   const [newTask, setNewTask] = useState("");
   const [isShowAddTask, setIsShowAddTask] = useState(false);
+  const [showNewTask, setShowNewTask] = useState(false);
+  const { view } = useView();
 
   let [habitList, setHabitList] = useState([
     {
@@ -58,17 +63,16 @@ function HabitList() {
   ]);
 
   function addTaskHandler() {
-    console.log("Task added");
-    console.log(newTask);
-
     setHabitList((prevList) => [
       ...prevList,
       {
-        id: habitList.length + 1,
+        id: uuidv4(),
         name: newTask,
         status: false,
       },
     ]);
+
+    setIsShowAddTask(false);
   }
 
   function editHandler() {
@@ -92,30 +96,50 @@ function HabitList() {
     setIsShowAddTask(!isShowAddTask);
   }
 
+  function openAddTaskHandler() {
+    setIsShowAddTask(true);
+  }
+
+  function closeAddTaskHandler() {
+    setIsShowAddTask(false);
+  }
+
   return (
     <React.Fragment>
-      <div className="container__inputform">
-        {isShowAddTask && (
-          <React.Fragment>
-            <Input type="text" onChange={(e) => setNewTask(e.target.value)} />
-            <Button name="Add task" onClick={addTaskHandler} />
-          </React.Fragment>
-        )}
-
-        <Button name="Add new task" onClick={showAddTaskHandler} />
-      </div>
-      <div className="container__habitlist">
-        {habitList.map((habit) => {
-          return (
-            <HabitItem
-              name={habit.name}
-              status={habit.status}
-              doneHandler={() => doneHandler(habit.id)}
-              editHandler={editHandler}
-            />
-          );
-        })}
-      </div>
+      {/* Show add task button in "Today" only */}
+      {view === "Today" && (
+        <React.Fragment>
+          <div className="container__addtask">
+            <Button name="Add new task" onClick={showAddTaskHandler} />
+          </div>
+          <div className="container__habitlist">
+            {habitList.map((habit) => {
+              return (
+                <HabitItem
+                  name={habit.name}
+                  status={habit.status}
+                  doneHandler={() => doneHandler(habit.id)}
+                  editHandler={editHandler}
+                />
+              );
+            })}
+          </div>
+        </React.Fragment>
+      )}
+      {/* Show add task form */}
+      <Modal
+        show={isShowAddTask}
+        onCancel={closeAddTaskHandler}
+        header="Add Task"
+        headerClass="addtask__modal-header"
+        contentClass="addtask__modal-content"
+        footerClass="addtask__modal-actions"
+        footer={<Button name="Add task" onClick={addTaskHandler} />}
+      >
+        <div className="container__inputform">
+          <Input type="text" onChange={(e) => setNewTask(e.target.value)} />
+        </div>
+      </Modal>
     </React.Fragment>
   );
 }
