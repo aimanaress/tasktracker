@@ -10,6 +10,7 @@
 
 .modal__header {
   padding-top: 1rem;
+  padding-bottom: 0.5rem;
   background: #3a3a3a;
   color: white;
 }

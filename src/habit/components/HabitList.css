@@ -13,23 +13,12 @@
 }
 
 .container__addtask {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
-  z-index: 100;
+  z-index: 49;
   height: 2rem;
   display: flex;
   justify-content: center;
   padding: 1.2rem;
-}
-.addtask__modal-content {
-  /* background-color: purple; */
-}
-
-.addtask__modal-actions {
-  /* background-color: green; */
-}
-
-.addtask__modal-header {
-  /* background-color: yellow; */
 }

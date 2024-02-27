@@ -20,14 +20,17 @@ function MainNavigation(props) {
 
   const navigations = [
     {
+      id: 1,
       title: "Today",
       icon: AdjustmentsHorizontalIcon,
     },
     {
+      id: 2,
       title: "Weekly",
       icon: CalendarDaysIcon,
     },
     {
+      id: 3,
       title: "Overall",
       icon: GlobeAltIcon,
     },
@@ -38,6 +41,7 @@ function MainNavigation(props) {
       {navigations.map((nav) => {
         return (
           <NavLinks
+            key={nav.id}
             title={nav.title}
             icon={<nav.icon />}
             // Check if the navigation is active
