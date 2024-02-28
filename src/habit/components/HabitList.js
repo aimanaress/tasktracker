@@ -13,7 +13,10 @@ function HabitList(props) {
   const [newTask, setNewTask] = useState("");
   const [isShowAddTask, setIsShowAddTask] = useState(false);
   const [isShowEditTask, setIsShowEditTask] = useState(false);
+  const [habitHistory, setHabitHistory] = useState([]);
   const { view } = useView();
+
+  const dateToday = new Date().toISOString().slice(0, 10); // Format as "YYYY-MM-DD"
 
   const [editTaskId, setEditTaskId] = useState(null); // State to store the ID of the task being edited
   const [editedTaskName, setEditedTaskName] = useState(""); // State to store the edited task name
@@ -22,48 +25,60 @@ function HabitList(props) {
     {
       id: 1,
       name: "Habit 1",
-      status: true,
+      daysToRepeat: [1, 3, 5], // Monday, Wednesday, Friday
+      history: [
+        { date: "2024-02-25", completed: false }, // Assuming today is 2024-02-28
+        { date: "2024-02-26", completed: false },
+        { date: "2024-02-27", completed: false },
+        { date: "2024-02-28", completed: false },
+      ],
     },
     {
       id: 2,
       name: "Habit 2",
-      status: true,
+      daysToRepeat: [2, 4, 6], // Tuesday, Thursday, Saturday
+      history: [
+        { date: "2024-02-25", completed: false },
+        { date: "2024-02-26", completed: false },
+        { date: "2024-02-27", completed: false },
+        { date: "2024-02-28", completed: true },
+      ],
     },
-    {
-      id: 3,
-      name: "Habit 3",
-      status: false,
-    },
-    {
-      id: 4,
-      name: "Habit 4",
-      status: false,
-    },
-    {
-      id: 5,
-      name: "Habit 5",
-      status: false,
-    },
-    {
-      id: 6,
-      name: "Habit 6",
-      status: false,
-    },
-    {
-      id: 7,
-      name: "Habit 7",
-      status: false,
-    },
-    {
-      id: 8,
-      name: "Habit 8",
-      status: false,
-    },
-    {
-      id: 9,
-      name: "Habit 9",
-      status: false,
-    },
+    // {
+    //   id: 3,
+    //   name: "Habit 3",
+    //   status: false,
+    // },
+    // {
+    //   id: 4,
+    //   name: "Habit 4",
+    //   status: false,
+    // },
+    // {
+    //   id: 5,
+    //   name: "Habit 5",
+    //   status: false,
+    // },
+    // {
+    //   id: 6,
+    //   name: "Habit 6",
+    //   status: false,
+    // },
+    // {
+    //   id: 7,
+    //   name: "Habit 7",
+    //   status: false,
+    // },
+    // {
+    //   id: 8,
+    //   name: "Habit 8",
+    //   status: false,
+    // },
+    // {
+    //   id: 9,
+    //   name: "Habit 9",
+    //   status: false,
+    // },
   ]);
 
   useEffect(() => {
@@ -81,7 +96,12 @@ function HabitList(props) {
       {
         id: uuidv4(),
         name: newTask,
-        status: false,
+        history: [
+          {
+            date: dateToday,
+            completed: false,
+          },
+        ],
       },
     ]);
     setIsShowAddTask(false);
@@ -91,12 +111,26 @@ function HabitList(props) {
     setHabitList(
       habitList.map((habit) => {
         if (habit.id === id) {
-          return { ...habit, status: !habit.status };
+          // return { ...habit, history: [!habit.history.completed] };
+          return {
+            ...habit,
+            history: habit.history.map((hist) => {
+              console.log(hist.date);
+              if (hist.date === dateToday) {
+                console.log(hist.date);
+                console.log(!hist.completed);
+                return { ...hist, completed: !hist.completed };
+              }
+              return hist;
+            }),
+          };
         }
         return habit;
       })
     );
   }
+
+  // habit.history.date === dateToday
 
   function showAddTaskHandler() {
     setIsShowAddTask(!isShowAddTask);
