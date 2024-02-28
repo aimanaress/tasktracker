@@ -30,7 +30,7 @@ function HabitList(props) {
         { date: "2024-02-25", completed: false }, // Assuming today is 2024-02-28
         { date: "2024-02-26", completed: false },
         { date: "2024-02-27", completed: false },
-        { date: "2024-02-28", completed: false },
+        { date: "2024-02-28", completed: true },
       ],
     },
     {
@@ -41,7 +41,7 @@ function HabitList(props) {
         { date: "2024-02-25", completed: false },
         { date: "2024-02-26", completed: false },
         { date: "2024-02-27", completed: false },
-        { date: "2024-02-28", completed: true },
+        { date: "2024-02-28", completed: false },
       ],
     },
     // {
@@ -88,6 +88,8 @@ function HabitList(props) {
         setEditedTaskName(habitToEdit.name);
       }
     }
+
+    console.log(habitList);
   }, [isShowEditTask, editTaskId, habitList]);
 
   function addTaskHandler() {
@@ -107,27 +109,70 @@ function HabitList(props) {
     setIsShowAddTask(false);
   }
 
+  // function doneHandler(id) {
+  //   setHabitList(
+  //     habitList.map((habit) => {
+  //       if (habit.id === id) {
+  //         // return { ...habit, history: [!habit.history.completed] };
+  //         return {
+  //           ...habit,
+  //           history: habit.history.map((hist) => {
+  //             console.log("Hist date " + hist.date);
+  //             if (hist.date === dateToday) {
+  //               console.log("Hist date " + hist.date);
+  //               console.log("Hist completed!" + !hist.completed);
+  //               return { ...hist, completed: !hist.completed };
+  //             }
+  //             console.log("Hist " + hist);
+  //             return hist;
+  //           }),
+  //         };
+  //       }
+  //       console.log("Habit " + habit);
+  //       return habit;
+  //     })
+  //   );
+  //   console.log("habitlist " + habitList);
+  //   return habitList;
+  // }
+
   function doneHandler(id) {
-    setHabitList(
-      habitList.map((habit) => {
-        if (habit.id === id) {
-          // return { ...habit, history: [!habit.history.completed] };
-          return {
-            ...habit,
-            history: habit.history.map((hist) => {
-              console.log(hist.date);
-              if (hist.date === dateToday) {
-                console.log(hist.date);
-                console.log(!hist.completed);
-                return { ...hist, completed: !hist.completed };
-              }
-              return hist;
-            }),
-          };
-        }
-        return habit;
-      })
-    );
+    const updatedHabitList = habitList.map((habit) => {
+      if (habit.id === id) {
+        return {
+          ...habit,
+          history: habit.history.map((hist) => {
+            if (hist.date === dateToday) {
+              return { ...hist, completed: !hist.completed };
+            }
+            return hist;
+          }),
+        };
+      }
+      return habit;
+    });
+    setHabitList(updatedHabitList);
+    return updatedHabitList;
+  }
+
+  function statusHandler(id, date) {
+    // Find the habit with the given ID
+    const habit = habitList.find((h) => h.id === id);
+
+    // If the habit exists
+    if (habit) {
+      // Convert date to ISO string format
+      const isoDate = new Date(date).toISOString().split("T")[0];
+
+      // Find the history entry for the given date
+      const entry = habit.history.find((h) => h.date === isoDate);
+
+      // If entry exists, return its completed status, otherwise return null
+      return entry ? entry.completed : null;
+    } else {
+      // If habit with given ID is not found, return null
+      return null;
+    }
   }
 
   // habit.history.date === dateToday
@@ -177,7 +222,7 @@ function HabitList(props) {
               <HabitItem
                 key={habit.id}
                 name={habit.name}
-                status={habit.status}
+                status={statusHandler(habit.id, dateToday)}
                 doneHandler={() => doneHandler(habit.id)}
                 editHandler={() => showEditTaskHandler(habit.id)}
               />
