@@ -6,6 +6,7 @@ import Modal from "../../shared/UIElements/Modal";
 import HabitItem from "./HabitItem";
 import Input from "../../shared/FormElements/Input";
 import Button from "../../shared/FormElements/Button";
+import CalendarItem from "./CalendarItem";
 
 import "./HabitList.css";
 
@@ -228,6 +229,11 @@ function HabitList(props) {
               />
             ))}
           </div>
+        </React.Fragment>
+      )}
+      {view === "Weekly" && (
+        <React.Fragment>
+          <CalendarItem />
         </React.Fragment>
       )}
       <Modal

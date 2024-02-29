@@ -1,0 +1,9 @@
+.container__calendaritem {
+  display: flex;
+  width: 15rem;
+}
+
+.react-calendar .react-calendar__tile.highlighted {
+  background-color: lightblue;
+  color: black;
+}
