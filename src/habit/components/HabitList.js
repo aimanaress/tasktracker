@@ -17,7 +17,8 @@ function HabitList(props) {
   const [habitHistory, setHabitHistory] = useState([]);
   const { view } = useView();
 
-  const dateToday = new Date().toISOString().slice(0, 10); // Format as "YYYY-MM-DD"
+  // Format as "YYYY-MM-DD"
+  const dateToday = new Date("2024-02-18").toISOString().slice(0, 10);
 
   const [editTaskId, setEditTaskId] = useState(null); // State to store the ID of the task being edited
   const [editedTaskName, setEditedTaskName] = useState(""); // State to store the edited task name
@@ -28,6 +29,30 @@ function HabitList(props) {
       name: "Habit 1",
       daysToRepeat: [1, 3, 5], // Monday, Wednesday, Friday
       history: [
+        { date: "2024-02-01", completed: false },
+        { date: "2024-02-02", completed: false },
+        { date: "2024-02-03", completed: false },
+        { date: "2024-02-04", completed: false },
+        { date: "2024-02-05", completed: true },
+        { date: "2024-02-06", completed: false },
+        { date: "2024-02-07", completed: false },
+        { date: "2024-02-08", completed: false },
+        { date: "2024-02-09", completed: false },
+        { date: "2024-02-10", completed: false },
+        { date: "2024-02-11", completed: false },
+        { date: "2024-02-12", completed: true },
+        { date: "2024-02-13", completed: false },
+        { date: "2024-02-14", completed: false },
+        { date: "2024-02-15", completed: false },
+        { date: "2024-02-16", completed: false },
+        { date: "2024-02-17", completed: false },
+        { date: "2024-02-18", completed: true },
+        { date: "2024-02-19", completed: false },
+        { date: "2024-02-20", completed: false },
+        { date: "2024-02-21", completed: false },
+        { date: "2024-02-22", completed: false },
+        { date: "2024-02-23", completed: false },
+        { date: "2024-02-24", completed: true },
         { date: "2024-02-25", completed: false }, // Assuming today is 2024-02-28
         { date: "2024-02-26", completed: false },
         { date: "2024-02-27", completed: false },
@@ -39,47 +64,36 @@ function HabitList(props) {
       name: "Habit 2",
       daysToRepeat: [2, 4, 6], // Tuesday, Thursday, Saturday
       history: [
+        { date: "2024-02-01", completed: false },
+        { date: "2024-02-02", completed: false },
+        { date: "2024-02-03", completed: false },
+        { date: "2024-02-04", completed: false },
+        { date: "2024-02-05", completed: false },
+        { date: "2024-02-06", completed: true },
+        { date: "2024-02-07", completed: false },
+        { date: "2024-02-08", completed: false },
+        { date: "2024-02-09", completed: false },
+        { date: "2024-02-10", completed: false },
+        { date: "2024-02-11", completed: false },
+        { date: "2024-02-12", completed: false },
+        { date: "2024-02-13", completed: true },
+        { date: "2024-02-14", completed: false },
+        { date: "2024-02-15", completed: false },
+        { date: "2024-02-16", completed: false },
+        { date: "2024-02-17", completed: false },
+        { date: "2024-02-18", completed: false },
+        { date: "2024-02-19", completed: true },
+        { date: "2024-02-20", completed: false },
+        { date: "2024-02-21", completed: false },
+        { date: "2024-02-22", completed: false },
+        { date: "2024-02-23", completed: false },
+        { date: "2024-02-24", completed: false },
         { date: "2024-02-25", completed: false },
         { date: "2024-02-26", completed: false },
         { date: "2024-02-27", completed: false },
         { date: "2024-02-28", completed: false },
       ],
     },
-    // {
-    //   id: 3,
-    //   name: "Habit 3",
-    //   status: false,
-    // },
-    // {
-    //   id: 4,
-    //   name: "Habit 4",
-    //   status: false,
-    // },
-    // {
-    //   id: 5,
-    //   name: "Habit 5",
-    //   status: false,
-    // },
-    // {
-    //   id: 6,
-    //   name: "Habit 6",
-    //   status: false,
-    // },
-    // {
-    //   id: 7,
-    //   name: "Habit 7",
-    //   status: false,
-    // },
-    // {
-    //   id: 8,
-    //   name: "Habit 8",
-    //   status: false,
-    // },
-    // {
-    //   id: 9,
-    //   name: "Habit 9",
-    //   status: false,
-    // },
   ]);
 
   useEffect(() => {
@@ -176,6 +190,17 @@ function HabitList(props) {
     }
   }
 
+  function getCompletedDatesById(habitId) {
+    const habit = habitList.find((habit) => habit.id === habitId);
+    if (!habit) return [];
+
+    const completedDates = habit.history
+      .filter((entry) => entry.completed)
+      .map((entry) => new Date(entry.date));
+
+    return completedDates;
+  }
+
   // habit.history.date === dateToday
 
   function showAddTaskHandler() {
@@ -231,9 +256,16 @@ function HabitList(props) {
           </div>
         </React.Fragment>
       )}
-      {view === "Weekly" && (
+      {view === "Overall" && (
         <React.Fragment>
-          <CalendarItem />
+          {habitList.map((habit) => (
+            <CalendarItem
+              key={habit.id}
+              id={habit.id}
+              name={habit.name}
+              getCompletedDatesById={getCompletedDatesById}
+            />
+          ))}
         </React.Fragment>
       )}
       <Modal
