@@ -4,6 +4,7 @@ import { useView } from "../../shared/context/ViewContext";
 
 import Modal from "../../shared/UIElements/Modal";
 import HabitItem from "./HabitItem";
+import WeeklyItem from "./WeeklyItem";
 import Input from "../../shared/FormElements/Input";
 import Button from "../../shared/FormElements/Button";
 
@@ -226,6 +227,15 @@ function HabitList(props) {
                 doneHandler={() => doneHandler(habit.id)}
                 editHandler={() => showEditTaskHandler(habit.id)}
               />
+            ))}
+          </div>
+        </React.Fragment>
+      )}
+      {view === "Weekly" && (
+        <React.Fragment>
+          <div className="container__habitlist">
+            {habitList.map((habit) => (
+              <WeeklyItem key={habit.id} name={habit.name} />
             ))}
           </div>
         </React.Fragment>
